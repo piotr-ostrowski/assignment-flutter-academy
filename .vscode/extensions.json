@@ -1,0 +1,16 @@
+{
+    "recommendations": [
+        "google.arb-editor",
+        "anthropic.claude-code",
+        "dart-code.dart-code",
+        "luanpotter.dart-import",
+        "dart-code.flutter",
+        "borneygit.fvm-manager",
+        "mhutchie.git-graph",
+        "vscjava.vscode-gradle",
+        "kisstkondoros.vscode-gutter-preview",
+        "yzhang.markdown-all-in-one",
+        "jeroen-meijer.pubspec-assist",
+        "redhat.vscode-yaml"
+    ]
+}

@@ -1,0 +1,74 @@
+name: flutter_academy
+description: A Flutter monorepo for academy projects
+version: 1.0.0
+
+environment:
+  sdk: ">=3.9.0 <4.0.0"
+workspace:
+  - packages/core
+  - packages/core_data
+  - packages/presentation
+  - app
+
+dev_dependencies:
+  melos: ^7.1.0
+
+melos:
+  sdkPath: .fvm/flutter_sdk
+
+  scripts:
+    analyze:
+      run: melos exec --order-dependents -- fvm flutter analyze
+      description: Run flutter analyze in all packages
+
+    test:
+      run: melos exec -- fvm flutter test
+      description: Run tests in all packages
+      packageFilters:
+        dirExists: test
+
+    test:coverage:
+      run: melos exec -- fvm flutter test --coverage
+      description: Run tests with coverage
+      packageFilters:
+        dirExists: test
+
+    build:
+      run: melos exec --order-dependents --fail-fast -- fvm flutter pub run build_runner build --delete-conflicting-outputs
+      description: Run build_runner
+      packageFilters:
+        dependsOn: "build_runner"
+
+    watch:
+      run: melos exec --order-dependents -- fvm flutter pub run build_runner watch --delete-conflicting-outputs
+      description: Run build_runner in watch mode
+      packageFilters:
+        dependsOn: "build_runner"
+
+    clean:
+      run: melos exec -- fvm flutter clean
+      description: Clean all packages
+
+    formatter:
+      run: melos exec -- "find . -name "*.dart" ! -path "*/generated/*" ! -name "*.g.dart" ! -name "*.freezed.dart" ! -name "*.module.dart" -exec dart format {} \;"
+      description: Format all packages
+
+    upgrade:
+      run: melos exec -- fvm flutter pub upgrade
+      description: Upgrade all dependencies
+
+    outdated:
+      run: melos exec -- fvm flutter pub outdated
+      description: Check for outdated packages
+
+    get:
+      run: melos exec -- fvm flutter pub get
+      description: Get dependencies
+
+    localize:
+      run: melos exec --order-dependents --fail-fast -- fvm flutter gen-l10n
+      description: Generate translations for each package
+      packageFilters:
+        dependsOn:
+          - flutter_localizations
+          - intl
