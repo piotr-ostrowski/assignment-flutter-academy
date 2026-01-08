@@ -9,6 +9,10 @@ dependencies:
   flutter:
     sdk: flutter
 
+  # Local packages
+  core:
+    path: ../core
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
