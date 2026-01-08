@@ -1,0 +1,109 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Android (debug)",
+      "type": "dart",
+      "request": "launch",
+      "program": "${workspaceFolder}/app/lib/main.dart",
+      "cwd": "${workspaceFolder}/app",
+      "args": [],
+      "flutterMode": "debug"
+    },
+    {
+      "name": "Android (profile)",
+      "type": "dart",
+      "request": "launch",
+      "program": "${workspaceFolder}/app/lib/main.dart",
+      "cwd": "${workspaceFolder}/app",
+      "args": [],
+      "flutterMode": "profile"
+    },
+    {
+      "name": "Android (release)",
+      "type": "dart",
+      "request": "launch",
+      "program": "${workspaceFolder}/app/lib/main.dart",
+      "cwd": "${workspaceFolder}/app",
+      "args": [],
+      "flutterMode": "release"
+    },
+    {
+      "name": "iOS (debug)",
+      "type": "dart",
+      "request": "launch",
+      "program": "${workspaceFolder}/app/lib/main.dart",
+      "cwd": "${workspaceFolder}/app",
+      "args": [],
+      "flutterMode": "debug"
+    },
+    {
+      "name": "iOS (profile)",
+      "type": "dart",
+      "request": "launch",
+      "program": "${workspaceFolder}/app/lib/main.dart",
+      "cwd": "${workspaceFolder}/app",
+      "args": [],
+      "flutterMode": "profile"
+    },
+    {
+      "name": "iOS (release)",
+      "type": "dart",
+      "request": "launch",
+      "program": "${workspaceFolder}/app/lib/main.dart",
+      "cwd": "${workspaceFolder}/app",
+      "args": [],
+      "flutterMode": "release"
+    },
+    {
+      "name": "Web (debug)",
+      "type": "dart",
+      "request": "launch",
+      "program": "${workspaceFolder}/app/lib/main.dart",
+      "cwd": "${workspaceFolder}/app",
+      "args": [
+        "--web-port=8080"
+      ],
+      "flutterMode": "debug"
+    },
+    {
+      "name": "Web (profile)",
+      "type": "dart",
+      "request": "launch",
+      "program": "${workspaceFolder}/app/lib/main.dart",
+      "cwd": "${workspaceFolder}/app",
+      "args": [
+        "--web-port=8080"
+      ],
+      "flutterMode": "profile"
+    },
+    {
+      "name": "Web (release)",
+      "type": "dart",
+      "request": "launch",
+      "program": "${workspaceFolder}/app/lib/main.dart",
+      "cwd": "${workspaceFolder}/app",
+      "args": [
+        "--web-port=8080"
+      ],
+      "flutterMode": "release"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "All Platforms - Debug",
+      "configurations": [
+        "Android (debug)",
+        "iOS (debug)",
+        "Web (debug)"
+      ]
+    },
+    {
+      "name": "Android - Debug & Profile",
+      "configurations": [
+        "Android (debug)",
+        "Android (profile)"
+      ]
+    }
+  ]
+}
