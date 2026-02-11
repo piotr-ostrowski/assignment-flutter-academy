@@ -3,6 +3,7 @@ import 'package:core/models/photovoltaic/photovoltaic_status.dart';
 import 'package:core/repositories/photovoltaic_repository.dart';
 import 'package:core_data/api/api_service.dart';
 import 'package:injectable/injectable.dart';
+import 'package:rxdart/rxdart.dart';
 
 @LazySingleton(as: PhotovoltaicRepository)
 class PhotovoltaicRepositoryImpl implements PhotovoltaicRepository {
@@ -17,9 +18,15 @@ class PhotovoltaicRepositoryImpl implements PhotovoltaicRepository {
 
   @override
   Stream<PhotovoltaicStatus> getPhotovoltaicStatusStream() {
-    return Stream<PhotovoltaicStatus>.periodic(const Duration(seconds: 1), (count) {
-      final statuses = PhotovoltaicStatus.values;
-      return statuses[count % statuses.length];
-    });
+    final periodicStream = Stream<PhotovoltaicStatus>.periodic(
+      const Duration(seconds: 2),
+      (count) => PhotovoltaicStatus.values[count % PhotovoltaicStatus.values.length],
+    );
+
+    final initialStatus = Stream.fromFuture(
+      _apiService.fetchPhotovoltaicData(),
+    ).map((model) => model.status).whereType<PhotovoltaicStatus>();
+
+    return Rx.concat([initialStatus, periodicStream]);
   }
 }

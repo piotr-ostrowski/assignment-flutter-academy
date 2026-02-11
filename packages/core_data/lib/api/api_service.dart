@@ -10,7 +10,7 @@ class ApiService {
   static const _photovoltaicAssetPath = 'packages/core_data/assets/photovoltaic_sample.json';
 
   Future<PhotovoltaicModel> fetchPhotovoltaicData() async {
-    await Future.delayed(const Duration(milliseconds: 300));
+    await Future<void>.delayed(const Duration(milliseconds: 300));
     final jsonString = await rootBundle.loadString(_photovoltaicAssetPath);
     return PhotovoltaicModel.fromJson(jsonDecode(jsonString) as Map<String, dynamic>);
   }
