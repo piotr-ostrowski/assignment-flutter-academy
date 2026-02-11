@@ -17,7 +17,7 @@ dependencies:
 
 flutter:
   assets:
-    - packages/core_data/assets/photovoltaic_sample.json
+    - assets/photovoltaic_sample.json
 
 dev_dependencies:
   flutter_test:

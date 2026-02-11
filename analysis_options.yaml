@@ -1,0 +1,72 @@
+include: package:flutter_lints/flutter.yaml
+
+linter:
+  rules:
+    require_trailing_commas: true
+    # avoid_print: false  # Uncomment to disable the `avoid_print` rule
+    # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
+
+analyzer:
+  exclude:
+    # Exclude generated Retrofit files from analysis.
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+    - "**/*.config.dart"
+    - "**/*.module.dart"
+  plugins:
+    - custom_lint
+  language:
+    # Do not cast nullable values to non-nullable types.
+    strict-casts: true
+    strict-inference: true
+    strict-raw-types: true
+  errors:
+    #########################
+    # Enhanced Error Levels #
+    #########################
+    # Triggered when declared elements like classes, methods, or fields are not used in the code.
+    unused_element: error
+    # Triggered when fields are declared but not used in the code.
+    unused_field: error
+    # Triggered when local variables declared within a function or method are not used.
+    unused_local_variable: error
+    # Triggered when a name declared in the import show clause is not actually used.
+    unused_shown_name: error
+    # Triggered when imported elements are not used in the file.
+    unused_import: error
+    # Triggered when a function or method returns a value that is not used.
+    unused_result: error
+    # Enables a warning for unnecessary null checks.
+    unnecessary_null_checks: warning
+    # Triggered when constructor parameters are declared but not used within the constructor.
+    avoid_unused_constructor_parameters: error
+    # Triggered when an exception is caught but not used in the catch block.
+    unused_catch_clause: error
+    # Triggered when operations on primitive types have no actual effect.
+    noop_primitive_operations: error
+
+    ###########################
+    # Ignored Redundant Rules #
+    ###########################
+    # Warning for conflicting linter options from the included 'flutter_lints.yaml' file.
+    included_file_warning: ignore
+    # Disable this warning when using freezed with json_serializable.
+    invalid_annotation_target: ignore
+    # Elements marked with @Deprecated should not be referenced within the same package.
+    deprecated_member_use_from_same_package: ignore
+    # If the method's type arguments cannot be inferred, use explicit type arguments.
+    inference_failure_on_function_invocation: ignore
+    # A comment explaining why the ignore is in place is missing. Try adding a comment above the ignore.
+    document_ignores: ignore
+    # Avoid duplicate cascade invocations; consider using a cascade.
+    cascade_invocations: ignore
+
+# Formatter settings
+formatter:
+  # Specifies the line width for auto-formatting the code.
+  # https://codewithandrea.com/articles/new-formatting-style-dart-3-7
+  trailing_commas: preserve
+  page_width: 120
+
+dart_formatter:
+  line_length: 120

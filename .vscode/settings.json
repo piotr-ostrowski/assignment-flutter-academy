@@ -1,5 +1,5 @@
 {
-  "dart.flutterSdkPath": ".fvm/versions/3.35.2",
+  "dart.flutterSdkPath": ".fvm/flutter_sdk",
   "dart.lineLength": 120,
   "editor.rulers": [
     120
@@ -10,17 +10,17 @@
     "editor.selectionHighlight": false,
     "editor.rulers": [
       120
-    ]
+    ],
   },
   "files.watcherExclude": {
     "**/.fvm": true
   },
   "search.exclude": {
-    "**/.fvm": true
+    "**/.fvm": true,
   },
   "workbench.tree.indent": 25,
   "workbench.tree.renderIndentGuides": "always",
   "arb-editor.suppressedWarnings": [
     "missing_metadata_for_key"
-  ]
+  ],
 }
