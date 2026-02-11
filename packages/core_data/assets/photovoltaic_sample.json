@@ -1,0 +1,18 @@
+{
+  "status": "production",
+  "isOverviewEnabled": true,
+  "exceptionStates": ["noException"],
+  "currentProduction": 4.72,
+  "currentProductionUnit": "kW",
+  "productionCumulated": {
+    "currentDay": 18.5,
+    "currentWeek": 97.3,
+    "currentMonth": 412.1,
+    "currentYear": 3240.6,
+    "lifecycle": 18750.0,
+    "unit": "kWh"
+  },
+  "installedPeakPower": 9.92,
+  "installedPeakPowerConsolidatedTotal": 9.92,
+  "hasConsolidatedData": true
+}
