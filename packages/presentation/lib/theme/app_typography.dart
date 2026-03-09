@@ -9,75 +9,108 @@ part 'app_typography.g.theme.dart';
 class AppTypographyExtension extends ThemeExtension<AppTypographyExtension>
     with _$AppTypographyExtensionMixin {
   const AppTypographyExtension({
-    // Headings
-    required this.headingLarge,
-    required this.headingMedium,
-    required this.headingSmall,
-    // Titles
-    required this.titleXLarge,
-    required this.titleLarge,
-    required this.titleMedium,
-    required this.titleSmall,
-    // Labels — medium weight
-    required this.labelXXLarge,
-    required this.labelXLarge,
-    required this.labelLarge,
-    required this.labelMedium,
-    required this.labelSmall,
-    // Labels — light weight
-    required this.labelXXLargeLight,
+    // Display
+    required this.d1,
+    required this.d2,
+    required this.d3,
+    // Heading
+    required this.h1,
+    required this.h2,
+    required this.h3,
+    required this.h4,
+    required this.h5,
     // Body
-    required this.bodyXLarge,
-    required this.bodyLarge,
-    required this.bodyMedium,
-    required this.bodySmall,
-    // Special
-    required this.textSizePopup,
+    required this.body1,
+    required this.body2,
+    // Tile
+    required this.tile1,
+    required this.tile2,
+    required this.tile7,
+    // Note
+    required this.note1,
+    required this.note2,
+    required this.note3,
+    required this.note4,
+    required this.note5,
+    // Label
+    required this.label1,
+    required this.label2,
+    required this.label3,
+    required this.label4,
+    required this.label5,
+    required this.label6,
+    required this.label7,
+    required this.label8,
+    required this.label9,
+    required this.label10,
+    required this.label1Light,
   });
 
-  // Headings
-  final TextStyle headingLarge;
-  final TextStyle headingMedium;
-  final TextStyle headingSmall;
-  // Titles
-  final TextStyle titleXLarge;
-  final TextStyle titleLarge;
-  final TextStyle titleMedium;
-  final TextStyle titleSmall;
-  // Labels — medium weight
-  final TextStyle labelXXLarge;
-  final TextStyle labelXLarge;
-  final TextStyle labelLarge;
-  final TextStyle labelMedium;
-  final TextStyle labelSmall;
-  // Labels — light weight
-  final TextStyle labelXXLargeLight;
+  // Display
+  final TextStyle d1;
+  final TextStyle d2;
+  final TextStyle d3;
+  // Heading
+  final TextStyle h1;
+  final TextStyle h2;
+  final TextStyle h3;
+  final TextStyle h4;
+  final TextStyle h5;
   // Body
-  final TextStyle bodyXLarge;
-  final TextStyle bodyLarge;
-  final TextStyle bodyMedium;
-  final TextStyle bodySmall;
-  // Special
-  final TextStyle textSizePopup;
+  final TextStyle body1;
+  final TextStyle body2;
+  // Tile
+  final TextStyle tile1;
+  final TextStyle tile2;
+  final TextStyle tile7;
+  // Note
+  final TextStyle note1;
+  final TextStyle note2;
+  final TextStyle note3;
+  final TextStyle note4;
+  final TextStyle note5;
+  // Label
+  final TextStyle label1;
+  final TextStyle label2;
+  final TextStyle label3;
+  final TextStyle label4;
+  final TextStyle label5;
+  final TextStyle label6;
+  final TextStyle label7;
+  final TextStyle label8;
+  final TextStyle label9;
+  final TextStyle label10;
+  final TextStyle label1Light;
 
   static const standard = AppTypographyExtension(
-    headingLarge: AppTypographyPrimitives.h1,
-    headingMedium: AppTypographyPrimitives.h2,
-    headingSmall: AppTypographyPrimitives.h3,
-    titleXLarge: AppTypographyPrimitives.tile1,
-    titleLarge: AppTypographyPrimitives.h4,
-    titleMedium: AppTypographyPrimitives.h5,
-    titleSmall: AppTypographyPrimitives.label7,
-    labelXXLarge: AppTypographyPrimitives.label1,
-    labelXLarge: AppTypographyPrimitives.label2,
-    labelLarge: AppTypographyPrimitives.label3,
-    labelMedium: AppTypographyPrimitives.label5,
-    labelSmall: AppTypographyPrimitives.label9,
-    labelXXLargeLight: AppTypographyPrimitives.label1Light,
-    bodyXLarge: AppTypographyPrimitives.body1,
-    bodyLarge: AppTypographyPrimitives.body2,
-    bodyMedium: AppTypographyPrimitives.note1,
-    bodySmall: AppTypographyPrimitives.note3,
-    textSizePopup: AppTypographyPrimitives.note5,
+    d1: AppTypographyPrimitives.d1,
+    d2: AppTypographyPrimitives.d2,
+    d3: AppTypographyPrimitives.d3,
+    h1: AppTypographyPrimitives.h1,
+    h2: AppTypographyPrimitives.h2,
+    h3: AppTypographyPrimitives.h3,
+    h4: AppTypographyPrimitives.h4,
+    h5: AppTypographyPrimitives.h5,
+    body1: AppTypographyPrimitives.body1,
+    body2: AppTypographyPrimitives.body2,
+    tile1: AppTypographyPrimitives.tile1,
+    tile2: AppTypographyPrimitives.tile2,
+    tile7: AppTypographyPrimitives.tile7,
+    note1: AppTypographyPrimitives.note1,
+    note2: AppTypographyPrimitives.note2,
+    note3: AppTypographyPrimitives.note3,
+    note4: AppTypographyPrimitives.note4,
+    note5: AppTypographyPrimitives.note5,
+    label1: AppTypographyPrimitives.label1,
+    label2: AppTypographyPrimitives.label2,
+    label3: AppTypographyPrimitives.label3,
+    label4: AppTypographyPrimitives.label4,
+    label5: AppTypographyPrimitives.label5,
+    label6: AppTypographyPrimitives.label6,
+    label7: AppTypographyPrimitives.label7,
+    label8: AppTypographyPrimitives.label8,
+    label9: AppTypographyPrimitives.label9,
+    label10: AppTypographyPrimitives.label10,
+    label1Light: AppTypographyPrimitives.label1Light,
   );
 }
