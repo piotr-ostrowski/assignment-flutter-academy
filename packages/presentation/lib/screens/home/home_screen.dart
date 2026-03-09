@@ -1,6 +1,11 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:core/models/photovoltaic/photovoltaic_status.dart';
+import 'package:core/repositories/photovoltaic_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:presentation/components/tile_card.dart';
+import 'package:presentation/screens/home/bloc/home_cubit.dart';
 import 'package:presentation/theme/app_colors.dart';
 import 'package:presentation/theme/app_sizing.dart';
 import 'package:presentation/theme/app_typography.dart';
@@ -8,6 +13,20 @@ import 'package:presentation/theme/app_typography.dart';
 @RoutePage()
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => HomeCubit(
+        photovoltaicRepository: GetIt.I<PhotovoltaicRepository>(),
+      )..loadData(),
+      child: const _HomeScreenContent(),
+    );
+  }
+}
+
+class _HomeScreenContent extends StatelessWidget {
+  const _HomeScreenContent();
 
   @override
   Widget build(BuildContext context) {
@@ -48,11 +67,24 @@ class HomeScreen extends StatelessWidget {
     final iconColor = colors.basic.content.default_;
 
     return [
-      TileCard(
-        topIcons: [Icon(Icons.power, size: 24, color: iconColor)],
-        topRightLabel: '⊙ 1',
-        centerText: '55°',
-        bottomLabel: 'Heat pump\ndiagnostic',
+      BlocBuilder<HomeCubit, HomeState>(
+        builder: (context, state) {
+          final isLoading = state.status == HomeStatus.initial ||
+              state.status == HomeStatus.loading;
+          final data = state.photovoltaicData;
+
+          final production = data?.currentProduction;
+          final unit = data?.currentProductionUnit ?? '';
+          final centerText = isLoading || production == null
+              ? '--'
+              : '${production.toStringAsFixed(2)} $unit';
+
+          return TileCard(
+            topIcons: [_photovoltaicStatusIcon(state.photovoltaicStatus, colors)],
+            centerText: centerText,
+            bottomLabel: 'Photovoltaic',
+          );
+        },
       ),
       TileCard(topRightLabel: '⊙ 2', centerText: '--', bottomLabel: 'Heat pump\ndiagnostic'),
       TileCard(
@@ -88,6 +120,20 @@ class HomeScreen extends StatelessWidget {
         bottomLabel: 'Heat pump\ndiagnostic',
       ),
     ];
+  }
+
+  Widget _photovoltaicStatusIcon(
+    PhotovoltaicStatus? status,
+    AppColorsExtension colors,
+  ) {
+    final icon = switch (status) {
+      PhotovoltaicStatus.production => Icons.bolt,
+      PhotovoltaicStatus.ready => Icons.wb_sunny_outlined,
+      PhotovoltaicStatus.off => Icons.power_settings_new,
+      PhotovoltaicStatus.error => Icons.error_outline,
+      PhotovoltaicStatus.nothing || null => Icons.circle_outlined,
+    };
+    return Icon(icon, size: 24, color: colors.basic.content.default_);
   }
 }
 

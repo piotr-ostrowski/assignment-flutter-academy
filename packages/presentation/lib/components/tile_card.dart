@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:presentation/theme/app_colors.dart';
+import 'package:presentation/theme/app_sizing.dart';
 import 'package:presentation/theme/app_typography.dart';
 
 class TileCard extends StatelessWidget {
@@ -88,14 +89,23 @@ class TileCard extends StatelessWidget {
                   ),
                   // Center
                   Expanded(
-                    child: Center(
-                      child: centerIcon != null
-                          ? SizedBox(width: 56, height: 56, child: centerIcon)
-                          : Text(
-                              centerText!,
-                              style: typography.tile2.copyWith(color: centerColor),
-                              textAlign: TextAlign.center,
-                            ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: AppSizing.spacing12,
+                      ),
+                      child: Center(
+                        child: centerIcon != null
+                            ? SizedBox(width: 56, height: 56, child: centerIcon)
+                            : FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Text(
+                                  centerText!,
+                                  style: typography.tile2.copyWith(color: centerColor),
+                                  textAlign: TextAlign.center,
+                                  maxLines: 1,
+                                ),
+                              ),
+                      ),
                     ),
                   ),
                   // Bottom label
