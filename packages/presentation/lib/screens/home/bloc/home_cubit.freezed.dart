@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$HomeState {
 
- HomeStatus get status; PhotovoltaicModel? get photovoltaicData; PhotovoltaicStatus? get photovoltaicStatus;
+ HomeStatus get status; List<HomeTileData> get tiles;
 /// Create a copy of HomeState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $HomeStateCopyWith<HomeState> get copyWith => _$HomeStateCopyWithImpl<HomeState>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeState&&(identical(other.status, status) || other.status == status)&&(identical(other.photovoltaicData, photovoltaicData) || other.photovoltaicData == photovoltaicData)&&(identical(other.photovoltaicStatus, photovoltaicStatus) || other.photovoltaicStatus == photovoltaicStatus));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeState&&(identical(other.status, status) || other.status == status)&&const DeepCollectionEquality().equals(other.tiles, tiles));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,status,photovoltaicData,photovoltaicStatus);
+int get hashCode => Object.hash(runtimeType,status,const DeepCollectionEquality().hash(tiles));
 
 @override
 String toString() {
-  return 'HomeState(status: $status, photovoltaicData: $photovoltaicData, photovoltaicStatus: $photovoltaicStatus)';
+  return 'HomeState(status: $status, tiles: $tiles)';
 }
 
 
@@ -45,11 +45,11 @@ abstract mixin class $HomeStateCopyWith<$Res>  {
   factory $HomeStateCopyWith(HomeState value, $Res Function(HomeState) _then) = _$HomeStateCopyWithImpl;
 @useResult
 $Res call({
- HomeStatus status, PhotovoltaicModel? photovoltaicData, PhotovoltaicStatus? photovoltaicStatus
+ HomeStatus status, List<HomeTileData> tiles
 });
 
 
-$PhotovoltaicModelCopyWith<$Res>? get photovoltaicData;
+
 
 }
 /// @nodoc
@@ -62,27 +62,14 @@ class _$HomeStateCopyWithImpl<$Res>
 
 /// Create a copy of HomeState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? status = null,Object? photovoltaicData = freezed,Object? photovoltaicStatus = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? status = null,Object? tiles = null,}) {
   return _then(_self.copyWith(
 status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
-as HomeStatus,photovoltaicData: freezed == photovoltaicData ? _self.photovoltaicData : photovoltaicData // ignore: cast_nullable_to_non_nullable
-as PhotovoltaicModel?,photovoltaicStatus: freezed == photovoltaicStatus ? _self.photovoltaicStatus : photovoltaicStatus // ignore: cast_nullable_to_non_nullable
-as PhotovoltaicStatus?,
+as HomeStatus,tiles: null == tiles ? _self.tiles : tiles // ignore: cast_nullable_to_non_nullable
+as List<HomeTileData>,
   ));
 }
-/// Create a copy of HomeState
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$PhotovoltaicModelCopyWith<$Res>? get photovoltaicData {
-    if (_self.photovoltaicData == null) {
-    return null;
-  }
 
-  return $PhotovoltaicModelCopyWith<$Res>(_self.photovoltaicData!, (value) {
-    return _then(_self.copyWith(photovoltaicData: value));
-  });
-}
 }
 
 
@@ -164,10 +151,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( HomeStatus status,  PhotovoltaicModel? photovoltaicData,  PhotovoltaicStatus? photovoltaicStatus)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( HomeStatus status,  List<HomeTileData> tiles)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _HomeState() when $default != null:
-return $default(_that.status,_that.photovoltaicData,_that.photovoltaicStatus);case _:
+return $default(_that.status,_that.tiles);case _:
   return orElse();
 
 }
@@ -185,10 +172,10 @@ return $default(_that.status,_that.photovoltaicData,_that.photovoltaicStatus);ca
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( HomeStatus status,  PhotovoltaicModel? photovoltaicData,  PhotovoltaicStatus? photovoltaicStatus)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( HomeStatus status,  List<HomeTileData> tiles)  $default,) {final _that = this;
 switch (_that) {
 case _HomeState():
-return $default(_that.status,_that.photovoltaicData,_that.photovoltaicStatus);case _:
+return $default(_that.status,_that.tiles);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -205,10 +192,10 @@ return $default(_that.status,_that.photovoltaicData,_that.photovoltaicStatus);ca
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( HomeStatus status,  PhotovoltaicModel? photovoltaicData,  PhotovoltaicStatus? photovoltaicStatus)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( HomeStatus status,  List<HomeTileData> tiles)?  $default,) {final _that = this;
 switch (_that) {
 case _HomeState() when $default != null:
-return $default(_that.status,_that.photovoltaicData,_that.photovoltaicStatus);case _:
+return $default(_that.status,_that.tiles);case _:
   return null;
 
 }
@@ -220,12 +207,17 @@ return $default(_that.status,_that.photovoltaicData,_that.photovoltaicStatus);ca
 
 
 class _HomeState extends HomeState {
-  const _HomeState({required this.status, this.photovoltaicData, this.photovoltaicStatus}): super._();
+  const _HomeState({required this.status, required final  List<HomeTileData> tiles}): _tiles = tiles,super._();
   
 
 @override final  HomeStatus status;
-@override final  PhotovoltaicModel? photovoltaicData;
-@override final  PhotovoltaicStatus? photovoltaicStatus;
+ final  List<HomeTileData> _tiles;
+@override List<HomeTileData> get tiles {
+  if (_tiles is EqualUnmodifiableListView) return _tiles;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_tiles);
+}
+
 
 /// Create a copy of HomeState
 /// with the given fields replaced by the non-null parameter values.
@@ -237,16 +229,16 @@ _$HomeStateCopyWith<_HomeState> get copyWith => __$HomeStateCopyWithImpl<_HomeSt
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _HomeState&&(identical(other.status, status) || other.status == status)&&(identical(other.photovoltaicData, photovoltaicData) || other.photovoltaicData == photovoltaicData)&&(identical(other.photovoltaicStatus, photovoltaicStatus) || other.photovoltaicStatus == photovoltaicStatus));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _HomeState&&(identical(other.status, status) || other.status == status)&&const DeepCollectionEquality().equals(other._tiles, _tiles));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,status,photovoltaicData,photovoltaicStatus);
+int get hashCode => Object.hash(runtimeType,status,const DeepCollectionEquality().hash(_tiles));
 
 @override
 String toString() {
-  return 'HomeState(status: $status, photovoltaicData: $photovoltaicData, photovoltaicStatus: $photovoltaicStatus)';
+  return 'HomeState(status: $status, tiles: $tiles)';
 }
 
 
@@ -257,11 +249,11 @@ abstract mixin class _$HomeStateCopyWith<$Res> implements $HomeStateCopyWith<$Re
   factory _$HomeStateCopyWith(_HomeState value, $Res Function(_HomeState) _then) = __$HomeStateCopyWithImpl;
 @override @useResult
 $Res call({
- HomeStatus status, PhotovoltaicModel? photovoltaicData, PhotovoltaicStatus? photovoltaicStatus
+ HomeStatus status, List<HomeTileData> tiles
 });
 
 
-@override $PhotovoltaicModelCopyWith<$Res>? get photovoltaicData;
+
 
 }
 /// @nodoc
@@ -274,28 +266,15 @@ class __$HomeStateCopyWithImpl<$Res>
 
 /// Create a copy of HomeState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? status = null,Object? photovoltaicData = freezed,Object? photovoltaicStatus = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? status = null,Object? tiles = null,}) {
   return _then(_HomeState(
 status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
-as HomeStatus,photovoltaicData: freezed == photovoltaicData ? _self.photovoltaicData : photovoltaicData // ignore: cast_nullable_to_non_nullable
-as PhotovoltaicModel?,photovoltaicStatus: freezed == photovoltaicStatus ? _self.photovoltaicStatus : photovoltaicStatus // ignore: cast_nullable_to_non_nullable
-as PhotovoltaicStatus?,
+as HomeStatus,tiles: null == tiles ? _self._tiles : tiles // ignore: cast_nullable_to_non_nullable
+as List<HomeTileData>,
   ));
 }
 
-/// Create a copy of HomeState
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$PhotovoltaicModelCopyWith<$Res>? get photovoltaicData {
-    if (_self.photovoltaicData == null) {
-    return null;
-  }
 
-  return $PhotovoltaicModelCopyWith<$Res>(_self.photovoltaicData!, (value) {
-    return _then(_self.copyWith(photovoltaicData: value));
-  });
-}
 }
 
 // dart format on

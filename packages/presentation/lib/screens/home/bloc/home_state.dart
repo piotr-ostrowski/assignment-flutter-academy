@@ -8,23 +8,25 @@ abstract class HomeState with _$HomeState {
 
   const factory HomeState({
     required HomeStatus status,
-    PhotovoltaicModel? photovoltaicData,
-    PhotovoltaicStatus? photovoltaicStatus,
+    required List<HomeTileData> tiles,
   }) = _HomeState;
 
   factory HomeState.initial() => const HomeState(
     status: HomeStatus.initial,
+    tiles: [],
   );
 
   HomeState loading() => copyWith(status: HomeStatus.loading);
 
-  HomeState success({required PhotovoltaicModel photovoltaicData}) => copyWith(
+  HomeState success({required List<HomeTileData> tiles}) => copyWith(
     status: HomeStatus.success,
-    photovoltaicData: photovoltaicData,
+    tiles: tiles,
   );
 
   HomeState failure() => copyWith(status: HomeStatus.failure);
 
-  HomeState withPhotovoltaicStatus(PhotovoltaicStatus newStatus) =>
-      copyWith(photovoltaicStatus: newStatus);
+  HomeState withFirstTile(HomeTileData tile) {
+    if (tiles.isEmpty) return this;
+    return copyWith(tiles: [tile, ...tiles.skip(1)]);
+  }
 }

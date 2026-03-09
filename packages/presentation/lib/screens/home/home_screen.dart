@@ -1,11 +1,11 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:core/models/photovoltaic/photovoltaic_status.dart';
 import 'package:core/repositories/photovoltaic_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:presentation/components/tile_card.dart';
 import 'package:presentation/screens/home/bloc/home_cubit.dart';
+import 'package:presentation/screens/home/model/home_tile_data.dart';
 import 'package:presentation/theme/app_colors.dart';
 import 'package:presentation/theme/app_sizing.dart';
 import 'package:presentation/theme/app_typography.dart';
@@ -38,102 +38,51 @@ class _HomeScreenContent extends StatelessWidget {
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
+            // Header with location and status
             HomeScreenHeader(typography: typography, colors: colors),
-            SliverPadding(
-              padding: const EdgeInsets.fromLTRB(
-                AppSizing.spacing16,
-                AppSizing.spacing8,
-                AppSizing.spacing16,
-                AppSizing.spacing16,
-              ),
-              sliver: SliverGrid(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: AppSizing.spacing16,
-                  mainAxisSpacing: AppSizing.spacing16,
-                  childAspectRatio: 156 / 168,
+            // Grid of tiles
+            BlocBuilder<HomeCubit, HomeState>(
+              builder: (context, state) => SliverPadding(
+                padding: const EdgeInsets.fromLTRB(
+                  AppSizing.spacing16,
+                  AppSizing.spacing8,
+                  AppSizing.spacing16,
+                  AppSizing.spacing16,
                 ),
-                delegate: SliverChildListDelegate(_buildCards(context)),
+                sliver: SliverGrid(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: AppSizing.spacing16,
+                    mainAxisSpacing: AppSizing.spacing16,
+                    childAspectRatio: 156 / 168,
+                  ),
+                  delegate: SliverChildBuilderDelegate(
+                    (context, index) => (BuildContext context, HomeTileData tile) {
+                      final iconColor = context.appColors.basic.content.default_;
+                      return TileCard(
+                        topIcons: tile.topIcons
+                            .map(
+                              (icon) => Icon(
+                                icon,
+                                size: 24,
+                                color: iconColor,
+                              ),
+                            )
+                            .toList(),
+                        topRightLabel: tile.topRightLabel,
+                        centerText: tile.centerText,
+                        bottomLabel: tile.bottomLabel,
+                      );
+                    }(context, state.tiles[index]),
+                    childCount: state.tiles.length,
+                  ),
+                ),
               ),
             ),
           ],
         ),
       ),
     );
-  }
-
-  List<Widget> _buildCards(BuildContext context) {
-    final colors = context.appColors;
-    final iconColor = colors.basic.content.default_;
-
-    return [
-      BlocBuilder<HomeCubit, HomeState>(
-        builder: (context, state) {
-          final isLoading = state.status == HomeStatus.initial ||
-              state.status == HomeStatus.loading;
-          final data = state.photovoltaicData;
-
-          final production = data?.currentProduction;
-          final unit = data?.currentProductionUnit ?? '';
-          final centerText = isLoading || production == null
-              ? '--'
-              : '${production.toStringAsFixed(2)} $unit';
-
-          return TileCard(
-            topIcons: [_photovoltaicStatusIcon(state.photovoltaicStatus, colors)],
-            centerText: centerText,
-            bottomLabel: 'Photovoltaic',
-          );
-        },
-      ),
-      TileCard(topRightLabel: '⊙ 2', centerText: '--', bottomLabel: 'Heat pump\ndiagnostic'),
-      TileCard(
-        topIcons: [Icon(Icons.power, size: 24, color: iconColor)],
-        topRightLabel: '⊙ 3',
-        centerText: '55°',
-        bottomLabel: 'Heat pump\ndiagnostic',
-      ),
-      TileCard(centerText: '--', bottomLabel: 'Boiler status'),
-      TileCard(centerText: '30°', bottomLabel: 'Boiler status'),
-      TileCard(
-        topIcons: [Icon(Icons.flag_outlined, size: 24, color: iconColor)],
-        centerText: '55°',
-        bottomLabel: 'Boiler status',
-      ),
-      TileCard(
-        topIcons: [
-          Icon(Icons.power, size: 24, color: iconColor),
-          Icon(Icons.air, size: 24, color: iconColor),
-        ],
-        topRightLabel: '⊙ 4',
-        centerText: '55°',
-        bottomLabel: 'Heat pump\ndiagnostic',
-      ),
-      TileCard(
-        topIcons: [
-          Icon(Icons.play_circle_outline, size: 24, color: iconColor),
-          Icon(Icons.power, size: 24, color: iconColor),
-          Icon(Icons.air, size: 24, color: iconColor),
-        ],
-        topRightLabel: '⊙ 5',
-        centerText: '55°',
-        bottomLabel: 'Heat pump\ndiagnostic',
-      ),
-    ];
-  }
-
-  Widget _photovoltaicStatusIcon(
-    PhotovoltaicStatus? status,
-    AppColorsExtension colors,
-  ) {
-    final icon = switch (status) {
-      PhotovoltaicStatus.production => Icons.bolt,
-      PhotovoltaicStatus.ready => Icons.wb_sunny_outlined,
-      PhotovoltaicStatus.off => Icons.power_settings_new,
-      PhotovoltaicStatus.error => Icons.error_outline,
-      PhotovoltaicStatus.nothing || null => Icons.circle_outlined,
-    };
-    return Icon(icon, size: 24, color: colors.basic.content.default_);
   }
 }
 
