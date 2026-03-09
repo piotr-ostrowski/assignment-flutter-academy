@@ -1,5 +1,11 @@
 export 'components/main_navigation_bar.dart';
 export 'router/app_router.dart';
+export 'theme/app_color_primitives.dart';
+export 'theme/app_colors.dart';
+export 'theme/app_sizing.dart';
+export 'theme/app_theme.dart';
+export 'theme/app_typography.dart';
+export 'theme/app_typography_primitives.dart';
 export 'router/app_router.gr.dart';
 export 'screens/analysis/analysis_screen.dart';
 export 'screens/dashboard/dashboard_screen.dart';

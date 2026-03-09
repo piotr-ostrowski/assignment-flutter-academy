@@ -19,12 +19,16 @@ dependencies:
   # Assets
   flutter_svg: ^2.0.10+1
 
+  # Theme
+  theme_extensions_builder_annotation: ^7.0.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
   build_runner: ^2.4.0
   auto_route_generator: ^10.2.3
+  theme_extensions_builder: ^7.0.0
 
 flutter:
   assets:
@@ -33,3 +37,17 @@ flutter:
     - assets/analysis_default.svg
     - assets/vistore_default.svg
     - assets/settings_default.svg
+
+  fonts:
+    - family: ViessmannBrand
+      fonts:
+        - asset: assets/fonts/brand_light.otf
+          weight: 300
+        - asset: assets/fonts/brand_regular.otf
+          weight: 400
+        - asset: assets/fonts/brand_medium.otf
+          weight: 500
+        - asset: assets/fonts/brand_semi_bold.otf
+          weight: 600
+        - asset: assets/fonts/brand_bold.otf
+          weight: 700

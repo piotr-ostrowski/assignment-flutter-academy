@@ -4,7 +4,10 @@
       "Bash(fvm flutter pub get)",
       "Bash(melos build --no-select)",
       "Bash(fvm flutter pub run build_runner build --delete-conflicting-outputs)",
-      "Bash(fvm flutter analyze)"
+      "Bash(fvm flutter analyze)",
+      "Bash(melos get)",
+      "Bash(fvm flutter pub get --directory packages/presentation)",
+      "Bash(fvm dart pub info theme_extensions_builder)"
     ]
   }
 }
