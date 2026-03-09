@@ -7,7 +7,8 @@
       "Bash(fvm flutter analyze)",
       "Bash(melos get)",
       "Bash(fvm flutter pub get --directory packages/presentation)",
-      "Bash(fvm dart pub info theme_extensions_builder)"
+      "Bash(fvm dart pub info theme_extensions_builder)",
+      "Bash(melos analyze)"
     ]
   }
 }
