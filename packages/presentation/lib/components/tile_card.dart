@@ -41,8 +41,8 @@ class TileCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         boxShadow: const [
           BoxShadow(
-            color: Color(0x19000000),
-            offset: Offset(0, 1),
+            color: Color(0x10000000),
+            offset: Offset(0, 4),
             blurRadius: 4,
             spreadRadius: 0,
           ),
@@ -101,7 +101,9 @@ class TileCard extends StatelessWidget {
                   // Bottom label
                   Text(
                     bottomLabel,
-                    style: typography.tile7.copyWith(color: labelColor, fontWeight: FontWeight.w600),
+                    style: typography.tile7.copyWith(
+                      color: labelColor,
+                    ),
                     textAlign: TextAlign.center,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,

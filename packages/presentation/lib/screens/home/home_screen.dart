@@ -19,33 +19,7 @@ class HomeScreen extends StatelessWidget {
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-            SliverToBoxAdapter(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(
-                  AppSizing.spacing16,
-                  AppSizing.spacing16,
-                  AppSizing.spacing16,
-                  AppSizing.spacing8,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Allendorf', style: typography.h1),
-                    const SizedBox(height: AppSizing.spacing4),
-                    Row(
-                      children: [
-                        Icon(Icons.check_circle_outline, size: 16, color: colors.basic.content.secondary),
-                        const SizedBox(width: 4),
-                        Text(
-                          'Your installation is doing well',
-                          style: typography.body2.copyWith(color: colors.basic.content.secondary),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            HomeScreenHeader(typography: typography, colors: colors),
             SliverPadding(
               padding: const EdgeInsets.fromLTRB(
                 AppSizing.spacing16,
@@ -114,5 +88,47 @@ class HomeScreen extends StatelessWidget {
         bottomLabel: 'Heat pump\ndiagnostic',
       ),
     ];
+  }
+}
+
+class HomeScreenHeader extends StatelessWidget {
+  const HomeScreenHeader({
+    super.key,
+    required this.typography,
+    required this.colors,
+  });
+
+  final AppTypographyExtension typography;
+  final AppColorsExtension colors;
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverToBoxAdapter(
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(
+          AppSizing.spacing16,
+          AppSizing.spacing16,
+          AppSizing.spacing16,
+          AppSizing.spacing8,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Allendorf', style: typography.h1),
+            const SizedBox(height: AppSizing.spacing4),
+            Row(
+              children: [
+                Icon(Icons.check_circle_outline, size: 16, color: colors.basic.content.secondary),
+                const SizedBox(width: AppSizing.spacing4),
+                Text(
+                  'Your installation is doing well',
+                  style: typography.body2.copyWith(color: colors.basic.content.secondary),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
