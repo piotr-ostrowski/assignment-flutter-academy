@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:presentation/components/tile_card.dart';
+import 'package:presentation/router/app_router.gr.dart';
 import 'package:presentation/screens/home/bloc/home_cubit.dart';
-import 'package:presentation/screens/home/model/home_tile_data.dart';
 import 'package:presentation/theme/app_colors.dart';
 import 'package:presentation/theme/app_sizing.dart';
 import 'package:presentation/theme/app_typography.dart';
@@ -33,53 +33,65 @@ class _HomeScreenContent extends StatelessWidget {
     final colors = context.appColors;
     final typography = context.appTypography;
 
-    return Scaffold(
-      backgroundColor: colors.basic.background.default_,
-      body: SafeArea(
-        child: CustomScrollView(
-          slivers: [
-            // Header with location and status
-            HomeScreenHeader(typography: typography, colors: colors),
-            // Grid of tiles
-            BlocBuilder<HomeCubit, HomeState>(
-              builder: (context, state) => SliverPadding(
-                padding: const EdgeInsets.fromLTRB(
-                  AppSizing.spacing16,
-                  AppSizing.spacing8,
-                  AppSizing.spacing16,
-                  AppSizing.spacing16,
-                ),
-                sliver: SliverGrid(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: AppSizing.spacing16,
-                    mainAxisSpacing: AppSizing.spacing16,
-                    childAspectRatio: 156 / 168,
+    return BlocListener<HomeCubit, HomeState>(
+      listenWhen: (prev, curr) => curr.pendingNavigation != null && curr.pendingNavigation != prev.pendingNavigation,
+      listener: (context, state) {
+        switch (state.pendingNavigation!) {
+          case HomeDestination.photovoltaic:
+            context.router.push(const PhotovoltaicRoute());
+        }
+        context.read<HomeCubit>().clearNavigation();
+      },
+      child: Scaffold(
+        backgroundColor: colors.basic.background.default_,
+        body: SafeArea(
+          child: CustomScrollView(
+            slivers: [
+              // Header with location and status
+              HomeScreenHeader(typography: typography, colors: colors),
+              // Grid of tiles
+              BlocBuilder<HomeCubit, HomeState>(
+                builder: (context, state) => SliverPadding(
+                  padding: const EdgeInsets.fromLTRB(
+                    AppSizing.spacing16,
+                    AppSizing.spacing8,
+                    AppSizing.spacing16,
+                    AppSizing.spacing16,
                   ),
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) => (BuildContext context, HomeTileData tile) {
-                      final iconColor = context.appColors.basic.content.default_;
-                      return TileCard(
-                        topIcons: tile.topIcons
-                            .map(
-                              (icon) => Icon(
-                                icon,
-                                size: 24,
-                                color: iconColor,
-                              ),
-                            )
-                            .toList(),
-                        topRightLabel: tile.topRightLabel,
-                        centerText: tile.centerText,
-                        bottomLabel: tile.bottomLabel,
-                      );
-                    }(context, state.tiles[index]),
-                    childCount: state.tiles.length,
+                  sliver: SliverGrid(
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: AppSizing.spacing16,
+                      mainAxisSpacing: AppSizing.spacing16,
+                      childAspectRatio: 156 / 168,
+                    ),
+                    delegate: SliverChildBuilderDelegate(
+                      (context, index) {
+                        final tile = state.tiles[index];
+                        final iconColor = context.appColors.basic.content.default_;
+                        return TileCard(
+                          topIcons: tile.topIcons
+                              .map(
+                                (icon) => Icon(
+                                  icon,
+                                  size: 24,
+                                  color: iconColor,
+                                ),
+                              )
+                              .toList(),
+                          topRightLabel: tile.topRightLabel,
+                          centerText: tile.centerText,
+                          bottomLabel: tile.bottomLabel,
+                          onTap: tile.onTap,
+                        );
+                      },
+                      childCount: state.tiles.length,
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

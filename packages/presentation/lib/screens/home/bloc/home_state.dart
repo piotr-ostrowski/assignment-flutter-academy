@@ -2,6 +2,8 @@ part of 'home_cubit.dart';
 
 enum HomeStatus { initial, loading, success, failure }
 
+enum HomeDestination { photovoltaic }
+
 @freezed
 abstract class HomeState with _$HomeState {
   const HomeState._();
@@ -9,6 +11,7 @@ abstract class HomeState with _$HomeState {
   const factory HomeState({
     required HomeStatus status,
     required List<HomeTileData> tiles,
+    HomeDestination? pendingNavigation,
   }) = _HomeState;
 
   factory HomeState.initial() => const HomeState(
@@ -29,4 +32,9 @@ abstract class HomeState with _$HomeState {
     if (tiles.isEmpty) return this;
     return copyWith(tiles: [tile, ...tiles.skip(1)]);
   }
+
+  HomeState navigateTo(HomeDestination destination) =>
+      copyWith(pendingNavigation: destination);
+
+  HomeState clearNavigation() => copyWith(pendingNavigation: null);
 }

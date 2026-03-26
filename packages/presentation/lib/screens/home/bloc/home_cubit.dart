@@ -52,8 +52,11 @@ class HomeCubit extends Cubit<HomeState> {
       topIcons: [_pvStatusIcon(status)],
       centerText: production != null ? '${production.toStringAsFixed(2)} $unit' : '--',
       bottomLabel: 'Photovoltaic',
+      onTap: () => emit(state.navigateTo(HomeDestination.photovoltaic)),
     );
   }
+
+  void clearNavigation() => emit(state.clearNavigation());
 
   IconData _pvStatusIcon(PhotovoltaicStatus? status) => switch (status) {
     PhotovoltaicStatus.production => Icons.bolt,

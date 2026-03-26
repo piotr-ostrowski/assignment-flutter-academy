@@ -8,7 +8,9 @@
       "Bash(melos get)",
       "Bash(fvm flutter pub get --directory packages/presentation)",
       "Bash(fvm dart pub info theme_extensions_builder)",
-      "Bash(melos analyze)"
+      "Bash(melos analyze)",
+      "Bash(fvm dart:*)",
+      "Read(//Users/piotrostrowski/.pub-cache/hosted/pub.dev/auto_route-10.3.0/lib/src/router/controller/**)"
     ]
   }
 }

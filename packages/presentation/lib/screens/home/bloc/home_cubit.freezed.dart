@@ -12,9 +12,9 @@ part of 'home_cubit.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$HomeState {
+mixin _$HomeState implements DiagnosticableTreeMixin {
 
- HomeStatus get status; List<HomeTileData> get tiles;
+ HomeStatus get status; List<HomeTileData> get tiles; HomeDestination? get pendingNavigation;
 /// Create a copy of HomeState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -22,19 +22,25 @@ mixin _$HomeState {
 $HomeStateCopyWith<HomeState> get copyWith => _$HomeStateCopyWithImpl<HomeState>(this as HomeState, _$identity);
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'HomeState'))
+    ..add(DiagnosticsProperty('status', status))..add(DiagnosticsProperty('tiles', tiles))..add(DiagnosticsProperty('pendingNavigation', pendingNavigation));
+}
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeState&&(identical(other.status, status) || other.status == status)&&const DeepCollectionEquality().equals(other.tiles, tiles));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeState&&(identical(other.status, status) || other.status == status)&&const DeepCollectionEquality().equals(other.tiles, tiles)&&(identical(other.pendingNavigation, pendingNavigation) || other.pendingNavigation == pendingNavigation));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,status,const DeepCollectionEquality().hash(tiles));
+int get hashCode => Object.hash(runtimeType,status,const DeepCollectionEquality().hash(tiles),pendingNavigation);
 
 @override
-String toString() {
-  return 'HomeState(status: $status, tiles: $tiles)';
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
+  return 'HomeState(status: $status, tiles: $tiles, pendingNavigation: $pendingNavigation)';
 }
 
 
@@ -45,7 +51,7 @@ abstract mixin class $HomeStateCopyWith<$Res>  {
   factory $HomeStateCopyWith(HomeState value, $Res Function(HomeState) _then) = _$HomeStateCopyWithImpl;
 @useResult
 $Res call({
- HomeStatus status, List<HomeTileData> tiles
+ HomeStatus status, List<HomeTileData> tiles, HomeDestination? pendingNavigation
 });
 
 
@@ -62,11 +68,12 @@ class _$HomeStateCopyWithImpl<$Res>
 
 /// Create a copy of HomeState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? status = null,Object? tiles = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? status = null,Object? tiles = null,Object? pendingNavigation = freezed,}) {
   return _then(_self.copyWith(
 status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as HomeStatus,tiles: null == tiles ? _self.tiles : tiles // ignore: cast_nullable_to_non_nullable
-as List<HomeTileData>,
+as List<HomeTileData>,pendingNavigation: freezed == pendingNavigation ? _self.pendingNavigation : pendingNavigation // ignore: cast_nullable_to_non_nullable
+as HomeDestination?,
   ));
 }
 
@@ -151,10 +158,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( HomeStatus status,  List<HomeTileData> tiles)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( HomeStatus status,  List<HomeTileData> tiles,  HomeDestination? pendingNavigation)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _HomeState() when $default != null:
-return $default(_that.status,_that.tiles);case _:
+return $default(_that.status,_that.tiles,_that.pendingNavigation);case _:
   return orElse();
 
 }
@@ -172,10 +179,10 @@ return $default(_that.status,_that.tiles);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( HomeStatus status,  List<HomeTileData> tiles)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( HomeStatus status,  List<HomeTileData> tiles,  HomeDestination? pendingNavigation)  $default,) {final _that = this;
 switch (_that) {
 case _HomeState():
-return $default(_that.status,_that.tiles);case _:
+return $default(_that.status,_that.tiles,_that.pendingNavigation);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -192,10 +199,10 @@ return $default(_that.status,_that.tiles);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( HomeStatus status,  List<HomeTileData> tiles)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( HomeStatus status,  List<HomeTileData> tiles,  HomeDestination? pendingNavigation)?  $default,) {final _that = this;
 switch (_that) {
 case _HomeState() when $default != null:
-return $default(_that.status,_that.tiles);case _:
+return $default(_that.status,_that.tiles,_that.pendingNavigation);case _:
   return null;
 
 }
@@ -206,8 +213,8 @@ return $default(_that.status,_that.tiles);case _:
 /// @nodoc
 
 
-class _HomeState extends HomeState {
-  const _HomeState({required this.status, required final  List<HomeTileData> tiles}): _tiles = tiles,super._();
+class _HomeState extends HomeState with DiagnosticableTreeMixin {
+  const _HomeState({required this.status, required final  List<HomeTileData> tiles, this.pendingNavigation}): _tiles = tiles,super._();
   
 
 @override final  HomeStatus status;
@@ -218,6 +225,7 @@ class _HomeState extends HomeState {
   return EqualUnmodifiableListView(_tiles);
 }
 
+@override final  HomeDestination? pendingNavigation;
 
 /// Create a copy of HomeState
 /// with the given fields replaced by the non-null parameter values.
@@ -226,19 +234,25 @@ class _HomeState extends HomeState {
 _$HomeStateCopyWith<_HomeState> get copyWith => __$HomeStateCopyWithImpl<_HomeState>(this, _$identity);
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'HomeState'))
+    ..add(DiagnosticsProperty('status', status))..add(DiagnosticsProperty('tiles', tiles))..add(DiagnosticsProperty('pendingNavigation', pendingNavigation));
+}
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _HomeState&&(identical(other.status, status) || other.status == status)&&const DeepCollectionEquality().equals(other._tiles, _tiles));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _HomeState&&(identical(other.status, status) || other.status == status)&&const DeepCollectionEquality().equals(other._tiles, _tiles)&&(identical(other.pendingNavigation, pendingNavigation) || other.pendingNavigation == pendingNavigation));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,status,const DeepCollectionEquality().hash(_tiles));
+int get hashCode => Object.hash(runtimeType,status,const DeepCollectionEquality().hash(_tiles),pendingNavigation);
 
 @override
-String toString() {
-  return 'HomeState(status: $status, tiles: $tiles)';
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
+  return 'HomeState(status: $status, tiles: $tiles, pendingNavigation: $pendingNavigation)';
 }
 
 
@@ -249,7 +263,7 @@ abstract mixin class _$HomeStateCopyWith<$Res> implements $HomeStateCopyWith<$Re
   factory _$HomeStateCopyWith(_HomeState value, $Res Function(_HomeState) _then) = __$HomeStateCopyWithImpl;
 @override @useResult
 $Res call({
- HomeStatus status, List<HomeTileData> tiles
+ HomeStatus status, List<HomeTileData> tiles, HomeDestination? pendingNavigation
 });
 
 
@@ -266,11 +280,12 @@ class __$HomeStateCopyWithImpl<$Res>
 
 /// Create a copy of HomeState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? status = null,Object? tiles = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? status = null,Object? tiles = null,Object? pendingNavigation = freezed,}) {
   return _then(_HomeState(
 status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as HomeStatus,tiles: null == tiles ? _self._tiles : tiles // ignore: cast_nullable_to_non_nullable
-as List<HomeTileData>,
+as List<HomeTileData>,pendingNavigation: freezed == pendingNavigation ? _self.pendingNavigation : pendingNavigation // ignore: cast_nullable_to_non_nullable
+as HomeDestination?,
   ));
 }
 

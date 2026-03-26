@@ -6,10 +6,12 @@ class HomeTileData {
     this.topRightLabel,
     this.centerText,
     required this.bottomLabel,
+    this.onTap,
   });
 
   final List<IconData> topIcons;
   final String? topRightLabel;
   final String? centerText;
   final String bottomLabel;
+  final VoidCallback? onTap;
 }
